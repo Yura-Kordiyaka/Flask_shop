@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/css/login.css" rel="stylesheet">
+    <title>Title</title>
+</head>
+<body>
+<div>
+       <img  src={{photo.img}}><br>
+    <ul >
+        {%if photo.description%}
+        <li>Про товар: {{photo.description}}</li>
+        {%if photo.name_of_product%}
+        {%endif%}
+        <li>Назва : {{photo.name_of_product}}</li>
+        {%endif%}
+        <li>Ціна : {{photo.cost}}</li>
+        <li>Категорія : {{photo.category}}</li>
+    </ul>
+</div>
+    <h2>Ви можете змінити</h2>
+<form action='/editProduct/{{photo.id}}' method='post' enctype="multipart/form-data">
+    <div class="container">
+        <label for="number">Price</label>
+    <input type="number" id="number" name="price" ><br><br>
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description" height="123"><br><br>
+    <label for="name_of_product">Name of product</label>
+    <input type="text" id="name_of_product" name="name_of_product"><br><br>
+    <label for="category_of_product">Category of product</label>
+    <input type="text" id="category_of_product" name="category_of_product">
+        <button type="submit">Submit</button>
+    </div>
+
+
+</form>
+</body>
+</html>

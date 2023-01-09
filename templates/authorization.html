@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Реєстрація</title>
-    <link rel="stylesheet" href=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="/static/css/login.css" rel="stylesheet">
 </head>
 <body>
-<form action="/" method="post">
-    <label for="Email">Email</label>
-    <input type="email" id="Email" name="email"><br>
-    <label for="Password">Password</label>
-    <input type="password" id="Password" name="password"><br>
-    <label for="Name">Name</label>
-    <input type="text" id="Name" name="name"><br>
-    <button type="submit">Submit</button>
-    <button type="submit"><a href="/Login">Login</a></button>
-</form>
+<h1>Authorization</h1>
+<div class="container">
+    <form class="background_form" action="/authorization" method="post">
+        <label for="Email">Email</label>
+        <input type="email" id="Email" name="email" required minlength="4"
+               maxlength="33"><br>
+        <label for="Password">Password</label>
+        <input type="password" id="Password" name="password" required minlength="4"
+               maxlength="23"><br>
+        <label for="Name">Name</label>
+        <input type="text" id="Name" name="name" required><br>
+
+            <button type="submit">Submit</button>
+            <button type="submit"><a href="/Login">Login in</a></button>
+    </form>
+</div>
+
+
 </body>
 </html>
+

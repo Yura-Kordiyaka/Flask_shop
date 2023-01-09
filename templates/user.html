@@ -3,8 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="/static/css/new.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Hello {{user_name}}</h1>
+<nav>
+    <nav class="navbar background">
+        <ul class="nav-list">
+            <li><a href="/logout">Exit</a></li>
+            <li><a href="/add_image">Add image</a></li>
+            <li><a href="/show_my_images">Show My images</a></li>
+            <li><a href="/show_all_images">Show all images</a></li>
+            <li>
+                <div class="dropdown">
+                    <button>Category</button>
+                    <div class="dropdown-content">
+                        {%for i in category%}
+                        <a href={{url_for('show_by_category', id=i)}}>{{i}}</a>
+                        {%endfor%}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <section class="firstsection">
+    <div class="box-main">
+        <div class="firstHalf">
+            <h1 class="text-big" id="web">Hello {{session.name}}</h1>
+        </div>
+    </div>
+<br>
+
+
 </body>
 </html>
