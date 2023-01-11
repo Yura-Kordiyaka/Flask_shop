@@ -1,0 +1,107 @@
+body {
+    background-color: white;
+    background-image: url("/static/images/fon.png");
+    background-repeat: repeat-x;
+}
+
+.menu-contents ul {
+    position: fixed;
+    list-style-type: none;
+    margin: -100px -10px -10px -10px;
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.menu-contents li {
+    float: left;
+}
+
+.menu-contents li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.menu-contents li a:hover, .dropdown:hover .dropbtn {
+    background-color: #111;
+}
+
+.menu-contents li.dropdown {
+    display: inline-block;
+}
+
+.menu-contents .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.menu-contents .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.menu-contents .dropdown-content a:hover {background-color: #f1f1f1}
+
+.menu-contents .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.photo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 40%;
+}
+.nav-list{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border: 3px solid black;
+    background-color: darkorange;
+    border-radius: 10px;
+}
+
+.content{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.button{
+    display: block;
+    width: 100%;
+    text-align: center;
+
+}
+button{
+    padding: 20px 20px 20px 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: darkorange;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    color: black;
+
+}
+
+a:hover {
+    text-decoration: none;
+    color: white;
+}

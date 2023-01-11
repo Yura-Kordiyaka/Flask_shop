@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="/static/css/main.css" rel="stylesheet">
+    <link href="/static/css/show_image.css" rel="stylesheet">
 </head>
 <body>
+<div class="menu-contents">
+     <ul >
 
-<div class="description">
-    {% for i in photo%}
-    <img class="photo" src={{i.img}}><br>
-    <ul>
+         <li><a href="/logout">Exit</a></li>
+         <li><a href="/add_image">Add image</a></li>
+         <li><a href="/show_all_images">Show all images</a></li>
+          <li><a href="/show_my_images">Show   my images</a></li>
+         <li><a href="/home">Home</a></li>
+    </ul>
+</div>
+<div>
+     {% for i in photo%}
+    <div class="image">
+         <img class="photo" src={{i.img}}><br>
+    </div>
+    <ul class="nav-list">
         {%if i.description%}
         <li>Про товар: {{i.description}}</li>
         {%if i.name_of_product%}
@@ -30,5 +41,7 @@
     </div>
     {% endfor %}
 </div>
+
+
 </body>
 </html>

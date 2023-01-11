@@ -10,7 +10,7 @@
 <h1>Sign in</h1>
 
 
-<form  action="/Login" method="post">
+<form action="/Login" method="post">
     <div class="container">
         <label for="Email"><b>Email</b></label>
         <input type="email" id="Email" placeholder="Enter Email" name="email" required>
@@ -19,11 +19,33 @@
         <input type="password" id="Password" name="password" placeholder="Enter Password" minlength="4"
                maxlength="23" required>
         <button type="submit">Submit</button>
+        <div class="container_forgot">
+            <a class="forgot_password" href="/change_password">Forgot password?</a>
+        </div>
+
     </div>
-    <div class="container" style="background-color:#f1f1f1">
-        <span class="Password">Forgot <a class="forgot_password" href="/change_password">password?</a></span>
-    </div>
+    <br>
+
 </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category,message in messages %}
+    <div class="error">
+          {%if category=='error'%}
+        <div class="message">
+            {{ message }}
+        </div>
+         {%endif%}
+    </div>
+
+    {%if category == 'success'%}
+    {{ message }}
+    {%endif%}
+    {% endfor %}
+
+{% endif %}
+{% endwith %}
 
 </body>
 </html>

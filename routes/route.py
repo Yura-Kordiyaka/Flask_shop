@@ -40,8 +40,8 @@ def Login():
             session['name'] = user.name
             return render_template('user.html', category=category)
         else:
-            error = '<h1>incorrect data</h1>'
-            return render_template('Login.html', error=error)
+            flash('you input incorrect data', 'error')
+            return render_template('Login.html')
 
 
 @app.route('/change_password', methods=['GET', 'POST'])
@@ -83,10 +83,15 @@ def add_image():
 
 @app.route('/show_my_images', methods=['GET', 'POST'])
 def show_my_images():
+    image = Img.query.all()
+    category = []
+    for i in image:
+        if i.category not in category:
+            category.append(i.category)
     image = Img.query.filter_by(user_id=session['id']).all()
     if request.method == 'GET':
         if image:
-            return render_template('ShowImage.html', photo=image)
+            return render_template('ShowImage.html', photo=image, category=category)
         else:
             return "<h1>you don't have photo</h1>", 400
 
@@ -139,6 +144,10 @@ def editProduct(id):
         return redirect(url_for('show_image'))
         # return "helllo"
 
+
+@app.route("/home")
+def home():
+    return render_template('user.html')
 
 @app.route("/logout")
 def logout():

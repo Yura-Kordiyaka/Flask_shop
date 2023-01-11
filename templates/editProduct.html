@@ -2,13 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="/static/css/login.css" rel="stylesheet">
+    <link href="/static/css/edit.css" rel="stylesheet">
     <title>Title</title>
 </head>
 <body>
-<div>
+<div class="menu-contents">
+     <ul >
+            <li><a href="/home">Home</a></li>
+            <li><a href="/logout">Exit</a></li>
+            <li><a href="/add_image">Add image</a></li>
+             <li><a href="/show_all_images">Show all images</a></li>
+    </ul>
+</div>
+<div class="edit">
        <img  src={{photo.img}}><br>
-    <ul >
+    <ul class="nav-list" >
         {%if photo.description%}
         <li>Про товар: {{photo.description}}</li>
         {%if photo.name_of_product%}
