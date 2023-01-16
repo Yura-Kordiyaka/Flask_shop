@@ -7,19 +7,18 @@
 </head>
 <body>
 <div class="menu-contents">
-     <ul >
-
-         <li><a href="/logout">Exit</a></li>
-         <li><a href="/add_image">Add image</a></li>
-         <li><a href="/show_all_images">Show all images</a></li>
-          <li><a href="/show_my_images">Show   my images</a></li>
-         <li><a href="/home">Home</a></li>
+    <ul>
+        <li><a href="/logout">Exit</a></li>
+        <li><a href="/add_image">Add image</a></li>
+        <li><a href="/show_all_images">Show all images</a></li>
+        <li><a href="/show_my_images">Show my images</a></li>
+        <li><a href="/home">Home</a></li>
     </ul>
 </div>
 <div>
-     {% for i in photo%}
+    {% for i in photo%}
     <div class="image">
-         <img class="photo" src={{i.img}}><br>
+        <img class="photo" src={{i.img}}><br>
     </div>
     <ul class="nav-list">
         {%if i.description%}
@@ -35,13 +34,19 @@
     <br>
     <div class="button">
         {%if session.id==i.user_id%}
-        <button type="submit"><a href={{url_for('editProduct', id=i.id)}}>Редагувати</a></button>
+        <button type="submit"><a href={{url_for('editProduct',id=i.id)}}>Редагувати</a></button>
         <button><a href={{url_for('delete',id=i.id)}}>Видалити</a></button>
+        {%endif%}
+        {%if session.id!=i.user_id%}
+        <button><a href={{url_for('add_to_basket',id=i.id)}}>Додати в корзину</a></button>
         {%endif%}
     </div>
     {% endfor %}
 </div>
 
+        {%if count==0%}
+            <h1 class="zero_product">You don't have any product</h1>
+        {%endif%}
 
 </body>
 </html>

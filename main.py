@@ -18,6 +18,7 @@ db.init_app(app)
 
 with app.app_context():
     from routes.route import *
+    from Payment import *
     from User import *
     from Image import *
     db.create_all()

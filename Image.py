@@ -12,3 +12,4 @@ class Img(db.Model):
     name_of_product = db.Column(db.String(100))
     category = db.Column(db.Text, nullable=False)
 
+

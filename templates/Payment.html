@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/css/login.css" rel="stylesheet">
+</head>
+<body>
+<h1>Payment</h1>
+<form action="/Payment" method="post">
+    <div class="container">
+        <label for="address"><b>Address</b></label>
+        <input type="text" id="address" placeholder="Enter Address" name="address" required>
+        <br>
+        <label for="phone_number"><b>Phone Number</b></label>
+        <input type="number" id="phone_number" name="phone_number" placeholder="Phone Number" minlength="4"
+               maxlength="23" required>
+         <br>
+        <label for="credit_card"><b>Credit Card</b></label>
+        <input type="text" id="credit_card" placeholder="Credit Card" name="credit_card" required>
+        <button type="submit">Submit</button>
+    </div>
+    <br>
+
+</form>
+
+</body>
+</html>

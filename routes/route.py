@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, session, url_for, flash
 from User import User
+from Payment import Payment
 from utilitis.check_file import *
 from Image import Img
 from werkzeug.utils import secure_filename
@@ -93,7 +94,7 @@ def show_my_images():
         if image:
             return render_template('ShowImage.html', photo=image, category=category)
         else:
-            return "<h1>you don't have photo</h1>", 400
+            return render_template('ShowImage.html', count=0)
 
 
 @app.route('/show_all_images', methods=['GET', 'POST'])
@@ -103,7 +104,7 @@ def show_all_images():
         if image:
             return render_template('ShowImage.html', photo=image)
         else:
-            return "<h1>you don't have photo</h1>", 400
+            return render_template('ShowImage.html')
 
 
 @app.route('/show_by_category/<id>', methods=['GET', 'POST'])
@@ -118,7 +119,6 @@ def show_by_category(id):
 
 @app.route('/delete/<int:id>', methods=['GET', 'POST'])
 def delete(id):
-    form = request.form
     image = Img.query.filter_by(id=int(id)).first()
     db.session.delete(image)
     db.session.commit()
@@ -141,7 +141,7 @@ def editProduct(id):
         if form['category_of_product']:
             image.category = form['category_of_product']
         db.session.commit()
-        return redirect(url_for('show_image'))
+        return redirect(url_for('show_my_images'))
         # return "helllo"
 
 
@@ -149,8 +149,96 @@ def editProduct(id):
 def home():
     return render_template('user.html')
 
+
+@app.route('/add_to_basket/<int:id>', methods=['GET', 'POST'])
+def add_to_basket(id):
+    if not session.get('cart'):
+        session['cart'] = []
+    j = 0
+    if session['cart']:
+        for i in session['cart']:
+            if i['product_id'] == id:
+                i['qty'] += 1
+                j += 1
+        if j == 0:
+            session["cart"].append(dict({'product_id': id,
+                                         'qty': 1}))
+
+    else:
+        session["cart"].append(dict({'product_id': id, 'qty': 1}))
+    return redirect(url_for('show_all_images'))
+
+
+@app.route('/delete_from_basket/<int:id>', methods=['GET', 'POST'])
+def delete_from_basket(id):
+    for i in range(len(session['cart'])):
+        if session['cart'][i]['product_id'] == id:
+            session['cart'].pop(i)
+    return redirect(url_for('show_my_basket'))
+
+
+@app.route('/show_my_basket', methods=['GET', 'POST'])
+def show_my_basket():
+    basket = []
+    product1 = {}
+    suma = 0
+    if request.method == 'GET':
+        if session['cart']:
+            for i in session['cart']:
+                img = Img.query.filter_by(id=i['product_id']).first()
+                if img:
+                    product1 = ({'count': i['qty'],
+                                 'product': img})
+                    basket.append(dict(product1))
+            for i in basket:
+                suma += i['count'] * i['product'].cost
+
+            return render_template('Basket.html', photo=basket, suma=suma)
+        else:
+            return render_template('Basket.html', photo=None, suma=0)
+    if request.method == 'POST':
+        return 'hello'
+
+
+@app.route('/Payment', methods=['GET', 'POST'])
+def payment():
+    if request.method == 'GET':
+        return render_template('Payment.html')
+    if request.method == 'POST':
+        form = request.form
+        for i in session['cart']:
+            img = Img.query.filter_by(id=i['product_id']).first()
+            payment = Payment(user_id=session['id'], product_id=img.id, count=i['qty'],
+                              suma=i['qty'] * img.cost, address=form['address'],
+                              phone_number=form['phone_number'], credit_card=form['credit_card'])
+            db.session.add(payment)
+        db.session.commit()
+        session['cart'] = None
+        flash('payment has done successfully', 'success')
+        return redirect(url_for('home'))
+
+
+@app.route('/My_cabinet', methods=['GET', 'POST'])
+def My_cabinet():
+    my_product = Payment.query.all()
+    list_product = []
+    suma = 0
+    for i in my_product:
+        img = Img.query.filter_by(id=i.product_id).first()
+        if img.user_id == session['id']:
+            list_product.append({'my_product': img,
+                                 'number_of_phone': i.phone_number,
+                                 'count': i.count})
+            suma += img.cost * i.count
+    if len(list_product) != 0:
+        return render_template('My_cabinet.html', photo=list_product, suma=suma)
+    else:
+        return render_template('My_cabinet.html', photo=None, suma=suma)
+
+
 @app.route("/logout")
 def logout():
     session["name"] = None
     session["id"] = None
+    session['cart'] = None
     return redirect("/")

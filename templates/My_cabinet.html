@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+   <link href="/static/css/basket.css" rel="stylesheet">
+</head>
+<body>
+<div class="menu-contents">
+        <ul>
+        <li><a href="/logout">Exit</a></li>
+        <li><a href="/add_image">Add image</a></li>
+        <li><a href="/show_all_images">Show all images</a></li>
+        <li><a href="/show_my_images">Show my images</a></li>
+        <li><a href="/home">Home</a></li>
+    </ul>
+</div>
+<div>
+    {%if photo%}
+        <h1>They want to buy your product</h1>
+        <br>
+        {% for i in photo%}
+        <ul class="nav-list">
+            {%if i['my_product'].description%}
+            <li>товар: {{i['my_product'].description}}</li>
+            {%if i['my_product'].name_of_product%}
+            {%endif%}
+            <li>Назва : {{i['my_product'].name_of_product}}</li>
+            {%endif%}
+            <li>номер телефону людини,що купує {{i['number_of_phone']}}</li>
+            <li>Ціна : {{i['my_product'].cost}}</li>
+            <li>Кількість товару, що хочуть придбати :{{i['count']}}</li>
+            <li>ціна всього товару :{{i['count']*i['my_product'].cost}}</li>
+        </ul>
+        {% endfor %}
+    {%endif%}
+</div>
+    {%if photo==None%}
+        <h1>Your product was not bought</h1>
+    {%endif%}
+    {%if suma!=0%}
+         <h1>Загальна сума {{suma}}</h1>
+    {%endif%}
+
+</body>
+</html>

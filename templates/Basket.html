@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/css/basket.css" rel="stylesheet">
+</head>
+<body>
+<div class="menu-contents">
+        <ul>
+        <li><a href="/logout">Exit</a></li>
+        <li><a href="/add_image">Add image</a></li>
+        <li><a href="/show_all_images">Show all images</a></li>
+        <li><a href="/show_my_images">Show my images</a></li>
+        <li><a href="/home">Home</a></li>
+    </ul>
+</div>
+<div>
+    {%if session['cart']%}
+        {% for i in photo%}
+        <div class="image">
+            <img class="photo" src={{i['product'].img}}><br>
+        </div>
+        <ul class="nav-list">
+            {%if i['product'].description%}
+            <li>Про товар: {{i.description}}</li>
+            {%if i['product'].name_of_product%}
+            {%endif%}
+            <li>Назва : {{i['product'].name_of_product}}</li>
+            {%endif%}
+            <li>Ціна : {{i['product'].cost}}</li>
+            <li>Категорія :{{i['product'].category}}</li>
+            <li>Кількість товару :{{i['count']}}</li>
+            <li>Кількість загальна ціна :{{i['count']*i['product'].cost}}</li>
+        </ul>
+          <div class="button">
+                <button><a href={{url_for('delete_from_basket',id=i['product'].id)}}>Видалити з корзини</a></button>
+        </div>
+        {% endfor %}
+    {%endif%}
+
+</div>
+    {%if suma!=0%}
+         <h1>Загальна сума {{suma}}</h1>
+        <button><a href={{url_for('payment')}}>Зробити замовлення</a></button>
+    {%endif%}
+    {%if suma==0%}
+         <h1>You don't have any product</h1>
+    {%endif%}
+
+</body>
+</html>
